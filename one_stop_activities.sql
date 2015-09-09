@@ -11,7 +11,7 @@ SET client_min_messages = warning;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
---
+
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
@@ -67,6 +67,7 @@ ALTER SEQUENCE activities_id_seq OWNED BY activities.id;
 
 --
 -- Name: students; Type: TABLE; Schema: public; Owner: archanabongale; Tablespace:
+
 --
 
 CREATE TABLE students (
@@ -104,6 +105,7 @@ ALTER SEQUENCE students_id_seq OWNED BY students.id;
 
 --
 -- Name: teachers; Type: TABLE; Schema: public; Owner: archanabongale; Tablespace:
+
 --
 
 CREATE TABLE teachers (
@@ -211,6 +213,7 @@ SELECT pg_catalog.setval('teachers_id_seq', 1, false);
 
 
 --
+
 -- Name: activities_pkey; Type: CONSTRAINT; Schema: public; Owner: archanabongale; Tablespace:
 --
 
@@ -219,6 +222,7 @@ ALTER TABLE ONLY activities
 
 
 --
+
 -- Name: students_pkey; Type: CONSTRAINT; Schema: public; Owner: archanabongale; Tablespace:
 --
 
@@ -227,6 +231,7 @@ ALTER TABLE ONLY students
 
 
 --
+
 -- Name: teachers_pkey; Type: CONSTRAINT; Schema: public; Owner: archanabongale; Tablespace:
 --
 

@@ -10,6 +10,7 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
+
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
@@ -17,6 +18,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
+
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
@@ -30,6 +32,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+
 -- Name: activities; Type: TABLE; Schema: public; Owner: archanabongale; Tablespace:
 --
 
@@ -66,6 +69,7 @@ ALTER SEQUENCE activities_id_seq OWNED BY activities.id;
 
 
 --
+
 -- Name: students; Type: TABLE; Schema: public; Owner: archanabongale; Tablespace:
 --
 
@@ -103,6 +107,7 @@ ALTER SEQUENCE students_id_seq OWNED BY students.id;
 
 
 --
+
 -- Name: teachers; Type: TABLE; Schema: public; Owner: archanabongale; Tablespace:
 --
 
@@ -211,6 +216,7 @@ SELECT pg_catalog.setval('teachers_id_seq', 1, false);
 
 
 --
+
 -- Name: activities_pkey; Type: CONSTRAINT; Schema: public; Owner: archanabongale; Tablespace:
 --
 
@@ -219,6 +225,7 @@ ALTER TABLE ONLY activities
 
 
 --
+
 -- Name: students_pkey; Type: CONSTRAINT; Schema: public; Owner: archanabongale; Tablespace:
 --
 
@@ -227,6 +234,7 @@ ALTER TABLE ONLY students
 
 
 --
+
 -- Name: teachers_pkey; Type: CONSTRAINT; Schema: public; Owner: archanabongale; Tablespace:
 --
 

@@ -2,6 +2,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 
 archivesBaseName = "one_stop_activities"
+
 version = '1.0'
 mainClassName = "App"
 
