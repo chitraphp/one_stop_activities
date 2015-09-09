@@ -2,7 +2,7 @@ import java.util.List;
 import org.sql2o.*;
 import java.util.ArrayList;
 
-public class student {
+public class Student {
   private int id;
   private String name;
   private String age;
