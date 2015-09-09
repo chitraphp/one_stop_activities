@@ -64,41 +64,6 @@ ALTER SEQUENCE activitites_id_seq OWNED BY activitites.id;
 
 
 --
--- Name: activity_joint; Type: TABLE; Schema: public; Owner: archanabongale; Tablespace: 
---
-
-CREATE TABLE activity_joint (
-    id integer NOT NULL,
-    teacher_id integer,
-    student_id integer,
-    activity_id integer
-);
-
-
-ALTER TABLE activity_joint OWNER TO archanabongale;
-
---
--- Name: activity_joint_id_seq; Type: SEQUENCE; Schema: public; Owner: archanabongale
---
-
-CREATE SEQUENCE activity_joint_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE activity_joint_id_seq OWNER TO archanabongale;
-
---
--- Name: activity_joint_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: archanabongale
---
-
-ALTER SEQUENCE activity_joint_id_seq OWNED BY activity_joint.id;
-
-
---
 -- Name: students; Type: TABLE; Schema: public; Owner: archanabongale; Tablespace: 
 --
 
@@ -113,6 +78,40 @@ CREATE TABLE students (
 
 
 ALTER TABLE students OWNER TO archanabongale;
+
+--
+-- Name: students_activities; Type: TABLE; Schema: public; Owner: archanabongale; Tablespace: 
+--
+
+CREATE TABLE students_activities (
+    id integer NOT NULL,
+    student_id integer,
+    activity_id integer
+);
+
+
+ALTER TABLE students_activities OWNER TO archanabongale;
+
+--
+-- Name: students_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: archanabongale
+--
+
+CREATE SEQUENCE students_activities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE students_activities_id_seq OWNER TO archanabongale;
+
+--
+-- Name: students_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: archanabongale
+--
+
+ALTER SEQUENCE students_activities_id_seq OWNED BY students_activities.id;
+
 
 --
 -- Name: students_id_seq; Type: SEQUENCE; Schema: public; Owner: archanabongale
@@ -150,7 +149,8 @@ CREATE TABLE teachers (
     spots_avaialble integer,
     class_start_date character varying,
     class_end_date character varying,
-    time_slot character varying
+    "time" character varying,
+    activity_id integer
 );
 
 
@@ -188,14 +188,14 @@ ALTER TABLE ONLY activitites ALTER COLUMN id SET DEFAULT nextval('activitites_id
 -- Name: id; Type: DEFAULT; Schema: public; Owner: archanabongale
 --
 
-ALTER TABLE ONLY activity_joint ALTER COLUMN id SET DEFAULT nextval('activity_joint_id_seq'::regclass);
+ALTER TABLE ONLY students ALTER COLUMN id SET DEFAULT nextval('students_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: archanabongale
 --
 
-ALTER TABLE ONLY students ALTER COLUMN id SET DEFAULT nextval('students_id_seq'::regclass);
+ALTER TABLE ONLY students_activities ALTER COLUMN id SET DEFAULT nextval('students_activities_id_seq'::regclass);
 
 
 --
@@ -221,26 +221,26 @@ SELECT pg_catalog.setval('activitites_id_seq', 1, false);
 
 
 --
--- Data for Name: activity_joint; Type: TABLE DATA; Schema: public; Owner: archanabongale
---
-
-COPY activity_joint (id, teacher_id, student_id, activity_id) FROM stdin;
-\.
-
-
---
--- Name: activity_joint_id_seq; Type: SEQUENCE SET; Schema: public; Owner: archanabongale
---
-
-SELECT pg_catalog.setval('activity_joint_id_seq', 1, false);
-
-
---
 -- Data for Name: students; Type: TABLE DATA; Schema: public; Owner: archanabongale
 --
 
 COPY students (id, name, age, phone, email, activity_enrolled) FROM stdin;
 \.
+
+
+--
+-- Data for Name: students_activities; Type: TABLE DATA; Schema: public; Owner: archanabongale
+--
+
+COPY students_activities (id, student_id, activity_id) FROM stdin;
+\.
+
+
+--
+-- Name: students_activities_id_seq; Type: SEQUENCE SET; Schema: public; Owner: archanabongale
+--
+
+SELECT pg_catalog.setval('students_activities_id_seq', 1, false);
 
 
 --
@@ -254,7 +254,7 @@ SELECT pg_catalog.setval('students_id_seq', 1, false);
 -- Data for Name: teachers; Type: TABLE DATA; Schema: public; Owner: archanabongale
 --
 
-COPY teachers (id, name, qualification, experience, no_of_students, fees, location, spots_avaialble, class_start_date, class_end_date, time_slot) FROM stdin;
+COPY teachers (id, name, qualification, experience, no_of_students, fees, location, spots_avaialble, class_start_date, class_end_date, "time", activity_id) FROM stdin;
 \.
 
 
@@ -274,11 +274,11 @@ ALTER TABLE ONLY activitites
 
 
 --
--- Name: activity_joint_pkey; Type: CONSTRAINT; Schema: public; Owner: archanabongale; Tablespace: 
+-- Name: students_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: archanabongale; Tablespace: 
 --
 
-ALTER TABLE ONLY activity_joint
-    ADD CONSTRAINT activity_joint_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY students_activities
+    ADD CONSTRAINT students_activities_pkey PRIMARY KEY (id);
 
 
 --

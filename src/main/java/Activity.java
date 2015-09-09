@@ -63,57 +63,59 @@ public class Activity {
     }
   }
 
-  public void addStudent(Student student) {
+  // public void addStudent(Student student) {
+  //   try(Connection con = DB.sql2o.open()) {
+  //    String sql = "INSERT INTO students_courses (student_id, course_id) VALUES (:student_id, :course_id)";
+  //     con.createQuery(sql)
+  //     .addParameter("student_id", student.getId())
+  //     .addParameter("teacher_id", this.getId())
+  //     .addParameter("activity_id",)
+  //     .executeUpdate();
+  //   }
+  // }
+  //
+  // public ArrayList<Student> getStudents() {
+  //   try(Connection con = DB.sql2o.open()){
+  //     String sql = "SELECT student_id FROM students_courses WHERE course_id = :course_id";
+  //     List<Integer> studentIds = con.createQuery(sql)
+  //     .addParameter("course_id", this.getId())
+  //     .executeAndFetch(Integer.class);
+  //
+  //     ArrayList<Student> students = new ArrayList<Student>();
+  //
+  //     for (Integer studentId : studentIds) {
+  //       String studentQuery = "Select * From students WHERE id = :studentId";
+  //       Student student = con.createQuery(studentQuery)
+  //       .addParameter("studentId", studentId)
+  //       .executeAndFetchFirst(Student.class);
+  //       students.add(student);
+  //     }
+  //     return students;
+  //   }
+  // }
+
+  public void update(String activity_type,String description) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO students_courses (student_id, course_id) VALUES (:student_id, :course_id)";
+      String sql = "UPDATE activities SET (activity_type = :activity_type,description =:description) WHERE id = :id";
       con.createQuery(sql)
-      .addParameter("student_id", student.getId())
-      .addParameter("course_id", this.getId())
-      .executeUpdate();
-    }
-  }
-
-  public ArrayList<Student> getStudents() {
-    try(Connection con = DB.sql2o.open()){
-      String sql = "SELECT student_id FROM students_courses WHERE course_id = :course_id";
-      List<Integer> studentIds = con.createQuery(sql)
-      .addParameter("course_id", this.getId())
-      .executeAndFetch(Integer.class);
-
-      ArrayList<Student> students = new ArrayList<Student>();
-
-      for (Integer studentId : studentIds) {
-        String studentQuery = "Select * From students WHERE id = :studentId";
-        Student student = con.createQuery(studentQuery)
-        .addParameter("studentId", studentId)
-        .executeAndFetchFirst(Student.class);
-        students.add(student);
-      }
-      return students;
-    }
-  }
-
-  public void update(String activity_type) {
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE courses SET activity_type = :activity_type WHERE id = :id";
-      con.createQuery(sql)
+      .addParameter("description",description)
       .addParameter("activity_type", activity_type)
       .addParameter("id", id)
       .executeUpdate();
     }
   }
 
-  public void delete() {
-    try(Connection con = DB.sql2o.open()) {
-      String deleteQuery = "DELETE FROM courses WHERE id = :id;";
-      con.createQuery(deleteQuery)
-      .addParameter("id", id)
-      .executeUpdate();
-
-      String joinDeleteQuery = "DELETE FROM students_courses WHERE course_id = :courseId";
-      con.createQuery(joinDeleteQuery)
-      .addParameter("courseId", this.getId())
-      .executeUpdate();
-    }
-  }
+  // public void delete() {
+  //   try(Connection con = DB.sql2o.open()) {
+  //     String deleteQuery = "DELETE FROM courses WHERE id = :id;";
+  //     con.createQuery(deleteQuery)
+  //     .addParameter("id", id)
+  //     .executeUpdate();
+  //
+  //     String joinDeleteQuery = "DELETE FROM students_courses WHERE course_id = :courseId";
+  //     con.createQuery(joinDeleteQuery)
+  //     .addParameter("courseId", this.getId())
+  //     .executeUpdate();
+  //   }
+  // }
 }

@@ -57,7 +57,7 @@ public class Student {
     }
   }
   public static List<student> all() {
-    String sql = "SELECT * FROM students ORDER BY name ASS";
+    String sql = "SELECT * FROM students ORDER BY name ASC";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Student.class);
     }
@@ -107,25 +107,25 @@ public class Student {
       }
     }
 
-    public void addTeacher(Teacher teacher) {
-      try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO activities (student_id,teacher_id,activity_id) VALUES (:student_id,:teacher_id,:activity_id)";
-      con.createQuery(sql)
-      .addParameter("student_id",teacher.getId())
-      .addParameter("teacher_id",this.getId())
-      .executeUpdate();
-      }
-    }
-
-    public List<Teacher> getTeacher() {
-      try(Connection con = DB.sql2o.open()) {
-        // look for 3 table joint.
-      //String sql = "SELECT teachers,students FROM students JOIN activities ON (student.id = activities.student_id) JOIN teachers ON (activities.teacher_id = teacher.id) WHERE students.id = :id ORDER BY name";
-      return con.createQuery(sql)
-      .addParameter("id",id)
-      .executeAndFetch(Teacher.class);
-      }
-    }
+    // public void addTeacher(Teacher teacher) {
+    //   try(Connection con = DB.sql2o.open()) {
+    //   String sql = "INSERT INTO activities (student_id,teacher_id,activity_id) VALUES (:student_id,:teacher_id,:activity_id)";
+    //   con.createQuery(sql)
+    //   .addParameter("student_id",teacher.getId())
+    //   .addParameter("teacher_id",this.getId())
+    //   .executeUpdate();
+    //   }
+    // }
+    //
+    // public List<Teacher> getTeacher() {
+    //   try(Connection con = DB.sql2o.open()) {
+    //     // look for 3 table joint.
+    //   //String sql = "SELECT teachers,students FROM students JOIN activities ON (student.id = activities.student_id) JOIN teachers ON (activities.teacher_id = teacher.id) WHERE students.id = :id ORDER BY name";
+    //   return con.createQuery(sql)
+    //   .addParameter("id",id)
+    //   .executeAndFetch(Teacher.class);
+    //   }
+    // }
 
   }
 }
