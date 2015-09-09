@@ -37,8 +37,9 @@ public class Activity {
       return false;
     } else {
       Activity newActivity = (Activity) otherActivity;
-      return this.getName().equals(newActivity.getName()) &&
-      return this.getDescription().equals(newActivity.getDescription());
+      return this.getId() == newActivity.getId() &&
+      this.getName().equals(newActivity.getName()) &&
+      this.getDescription().equals(newActivity.getDescription());
     }
   }
 
@@ -59,7 +60,7 @@ public class Activity {
       Activity activity = con.createQuery(sql)
       .addParameter("id", id)
       .executeAndFetchFirst(Activity.class);
-      return Activity;
+      return activity;
     }
   }
 
