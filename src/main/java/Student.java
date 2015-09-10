@@ -91,20 +91,19 @@ public class Student {
   }
   public void update(String name,String age, String phone,String email,String activity_enrolled) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE students SET name =:name, age =:age, phone =:phone, email =:email, activity_enrolled =:activity_enrolled WHERE id=:id";
+      String sql = "UPDATE students SET name =:name, age =:age, phone =:phone, email =:email WHERE id=:id";
       con.createQuery(sql)
       .addParameter("name",name)
       .addParameter("age",age)
       .addParameter("phone",phone)
       .addParameter("email",email)
-      .addParameter("activity_enrolled",activity_enrolled)
       .executeUpdate();
       }
     }
 
     public void addActivity(Activity activity, Teacher teacher) {
       try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO teachers_activities_students (student_id,activity_id,teacher_id) VALUES (:student_id,:activity_id,:teacher_id)";
+      String sql = "INSERT INTO students_teachers_activities (student_id,activity_id,teacher_id) VALUES (:student_id,:activity_id,:teacher_id)";
       con.createQuery(sql)
       .addParameter("student_id",this.getId())
       .addParameter("activity_id",activity.getId())
@@ -116,21 +115,21 @@ public class Student {
     public List<Activity> getActivities() {
       try(Connection con = DB.sql2o.open()) {
 
-      String sql = "SELECT activities .* FROM students JOIN teachers_activities_students ON (students.id = teachers_activities_students.student_id) JOIN activities ON (teachers_activities_students.activity_id = activities.id) JOIN teachers ON (teachers_activities_students.teacher_id = teachers.id) WHERE student_id = :id";
+      String sql = "SELECT activities .* FROM students JOIN students_teachers_activities ON (students.id = students_teachers_activities.student_id) JOIN activities ON (students_teachers_activities.activity_id = activities.id) JOIN teachers ON (students_teachers_activities.teacher_id = teachers.id) WHERE student_id = :id";
       return con.createQuery(sql)
       .addParameter("id",id)
       .executeAndFetch(Activity.class);
       }
     }
 
-    public List<Teacher> getStudentActivityTeacher(int activity_id) {
+    public Teacher getStudentActivityTeacher(int activity_id) {
       try(Connection con = DB.sql2o.open()) {
 
-      String sql = "SELECT teachers .* FROM activities JOIN teachers_activities_students ON (activities.id = teachers_activities_students.activity_id) JOIN teachers ON (teachers_activities_students.teacher_id = teachers.id) JOIN students ON (teachers_activities_students.student_id = students.id) WHERE student_id = :id and activity_id = :activity_id";
+      String sql = "SELECT teachers .* FROM activities JOIN students_teachers_activities ON (activities.id = students_teachers_activities.activity_id) JOIN teachers ON (students_teachers_activities.teacher_id = teachers.id) JOIN students ON (students_teachers_activities.student_id = students.id) WHERE student_id = :id and activity_id = :activity_id";
       return con.createQuery(sql)
       .addParameter("id",id)
       .addParameter("activity_id" ,activity_id)
-      .executeAndFetch(Teacher.class);
+      .executeAndFetchFirst(Teacher.class);
       }
     }
 
