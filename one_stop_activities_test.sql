@@ -30,23 +30,23 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: activitites; Type: TABLE; Schema: public; Owner: archanabongale; Tablespace: 
+-- Name: activities; Type: TABLE; Schema: public; Owner: archanabongale; Tablespace: 
 --
 
-CREATE TABLE activitites (
+CREATE TABLE activities (
     id integer NOT NULL,
     activity_type character varying,
     description character varying
 );
 
 
-ALTER TABLE activitites OWNER TO archanabongale;
+ALTER TABLE activities OWNER TO archanabongale;
 
 --
--- Name: activitites_id_seq; Type: SEQUENCE; Schema: public; Owner: archanabongale
+-- Name: activities_id_seq; Type: SEQUENCE; Schema: public; Owner: archanabongale
 --
 
-CREATE SEQUENCE activitites_id_seq
+CREATE SEQUENCE activities_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -54,13 +54,13 @@ CREATE SEQUENCE activitites_id_seq
     CACHE 1;
 
 
-ALTER TABLE activitites_id_seq OWNER TO archanabongale;
+ALTER TABLE activities_id_seq OWNER TO archanabongale;
 
 --
--- Name: activitites_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: archanabongale
+-- Name: activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: archanabongale
 --
 
-ALTER SEQUENCE activitites_id_seq OWNED BY activitites.id;
+ALTER SEQUENCE activities_id_seq OWNED BY activities.id;
 
 
 --
@@ -181,7 +181,7 @@ ALTER SEQUENCE teachers_id_seq OWNED BY teachers.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: archanabongale
 --
 
-ALTER TABLE ONLY activitites ALTER COLUMN id SET DEFAULT nextval('activitites_id_seq'::regclass);
+ALTER TABLE ONLY activities ALTER COLUMN id SET DEFAULT nextval('activities_id_seq'::regclass);
 
 
 --
@@ -206,18 +206,18 @@ ALTER TABLE ONLY teachers ALTER COLUMN id SET DEFAULT nextval('teachers_id_seq':
 
 
 --
--- Data for Name: activitites; Type: TABLE DATA; Schema: public; Owner: archanabongale
+-- Data for Name: activities; Type: TABLE DATA; Schema: public; Owner: archanabongale
 --
 
-COPY activitites (id, activity_type, description) FROM stdin;
+COPY activities (id, activity_type, description) FROM stdin;
 \.
 
 
 --
--- Name: activitites_id_seq; Type: SEQUENCE SET; Schema: public; Owner: archanabongale
+-- Name: activities_id_seq; Type: SEQUENCE SET; Schema: public; Owner: archanabongale
 --
 
-SELECT pg_catalog.setval('activitites_id_seq', 1, false);
+SELECT pg_catalog.setval('activities_id_seq', 1, false);
 
 
 --
@@ -266,11 +266,11 @@ SELECT pg_catalog.setval('teachers_id_seq', 1, false);
 
 
 --
--- Name: activitites_pkey; Type: CONSTRAINT; Schema: public; Owner: archanabongale; Tablespace: 
+-- Name: activities_pkey; Type: CONSTRAINT; Schema: public; Owner: archanabongale; Tablespace: 
 --
 
-ALTER TABLE ONLY activitites
-    ADD CONSTRAINT activitites_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY activities
+    ADD CONSTRAINT activities_pkey PRIMARY KEY (id);
 
 
 --
