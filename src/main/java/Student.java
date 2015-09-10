@@ -8,7 +8,7 @@ public class Student {
   private String age;
   private String phone;
   private String email;
-  private String activity_enrolled;
+
 
   public int getId() {
     return id;
@@ -36,7 +36,6 @@ public class Student {
     this.age = age;
     this.phone = phone;
     this.email = email;
-    this.activity_enrolled = activity_enrolled;
   }
 
   @Override
@@ -49,8 +48,7 @@ public class Student {
       this.getName().equals(newStudent.getName()) &&
       this.getAge().equals(newStudent.getAge()) &&
       this.getPhone().equals(newStudent.getPhone()) &&
-      this.getEmail().equals(newStudent.getEmail()) &&
-      this.getActivityEnrolled().equals(newStudent.getActivityEnrolled());
+      this.getEmail().equals(newStudent.getEmail());
 
     }
   }
@@ -69,7 +67,6 @@ public class Student {
       .addParameter("age",age)
       .addParameter("phone",phone)
       .addParameter("email",email)
-      .addParameter("activity_enrolled")
       .executeUpdate()
       .getKey();
     }
@@ -105,24 +102,37 @@ public class Student {
       }
     }
 
-    public void addActivity(Activity activity) {
+    // public void addActivity(Activity activity) {
+    //   try(Connection con = DB.sql2o.open()) {
+    //   String sql = "INSERT INTO students_activities (student_id,activity_id) VALUES (:student_id,:activity_id)";
+    //   con.createQuery(sql)
+    //   .addParameter("student_id",this.getId())
+    //   .addParameter("activity_id",activity.getId())
+    //   .executeUpdate();
+    //   }
+    // }
+    //
+    public List<Activity> getActivities() {
       try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO students_activities (student_id,activity_id) VALUES (:student_id,:activity_id)";
-      con.createQuery(sql)
-      .addParameter("student_id",this.getId())
-      .addParameter("activity_id",activity.getId())
-      .executeUpdate();
-      }
-    }
 
-    public List<Activity> getActivity() {
-      try(Connection con = DB.sql2o.open()) {
-
-      String sql = "SELECT activities .* FROM students JOIN students_activities ON (student.id = students_activities.student_id) JOIN activities ON (students_activities.activity_id = activity.id) WHERE students.id = :id ORDER BY name";
+      String sql = "SELECT activities .* FROM students JOIN teachers_activities_students ON (students.id = teachers_activities_students.student_id) JOIN activities ON (teachers_activities_students.activity_id = activities.id) JOIN teachers ON (teachers_activities_students.teacher_id = teachers.id) WHERE student_id = :id";
       return con.createQuery(sql)
       .addParameter("id",id)
       .executeAndFetch(Activity.class);
       }
     }
+
+    public List<Teacher> getStudentActivityTeacher(int activity_id) {
+      try(Connection con = DB.sql2o.open()) {
+
+      String sql = "SELECT teachers .* FROM activities JOIN teachers_activities_students ON (activities.id = teachers_activities_students.activity_id) JOIN teachers ON (teachers_activities_students.teacher_id = teachers.id) JOIN students ON (teachers_activities_students.student_id = students.id) WHERE student_id = :id and activity_id = :activity_id";
+      return con.createQuery(sql)
+      .addParameter("id",id)
+      .addParameter("activity_id" ,activity_id)
+      .executeAndFetch(Teacher.class);
+      }
+    }
+
+
 
   }
