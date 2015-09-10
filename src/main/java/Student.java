@@ -30,11 +30,8 @@ public class Student {
     return email;
   }
 
-  public String getActivityEnrolled() {
-    return activity_enrolled;
-  }
 
-  public Student(String name, String age, String phone, String email, String activity_enrolled) {
+  public Student(String name, String age, String phone, String email) {
     this.name = name;
     this.age = age;
     this.phone = phone;
@@ -66,13 +63,13 @@ public class Student {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO students(name,age,phone,email,activity_enrolled) VALUES (:name,:age,:phone,:email,:activity_enrolled)";
+      String sql = "INSERT INTO students(name,age,phone,email) VALUES (:name,:age,:phone,:email)";
       this.id = (int) con.createQuery(sql,true)
       .addParameter("name",name)
       .addParameter("age",age)
       .addParameter("phone",phone)
       .addParameter("email",email)
-      .addParameter("activity_enrolled",activity_enrolled)
+      .addParameter("activity_enrolled")
       .executeUpdate()
       .getKey();
     }
@@ -110,7 +107,7 @@ public class Student {
 
     public void addActivity(Activity activity) {
       try(Connection con = DB.sql2o.open()) {
-    //  String sql = "INSERT INTO students_activities (student_id,activity_id) VALUES (:student_id,:activity_id)";
+      String sql = "INSERT INTO students_activities (student_id,activity_id) VALUES (:student_id,:activity_id)";
       con.createQuery(sql)
       .addParameter("student_id",this.getId())
       .addParameter("activity_id",activity.getId())
@@ -125,16 +122,6 @@ public class Student {
       return con.createQuery(sql)
       .addParameter("id",id)
       .executeAndFetch(Activity.class);
-      }
-    }
-
-    public List<Student> getStudents() {
-      try(Connection con = DB.sql2o.open()) {
-
-    //  String sql = "SELECT activities .* FROM students JOIN students_activities ON (student.id = students_activities.student_id) JOIN activities ON (students_activities.activity_id = activity.id) WHERE students.id = :id ORDER BY name";
-      return con.createQuery(sql)
-      .addParameter("id",id)
-      .executeAndFetch(Student.class);
       }
     }
 
