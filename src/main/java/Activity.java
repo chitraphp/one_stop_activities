@@ -27,7 +27,8 @@ public class Activity {
   public static List<Activity> all() {
     String sql = "SELECT * FROM activities";
     try(Connection con = DB.sql2o.open()) {
-      return con.createQuery(sql).executeAndFetch(Activity.class);
+      return con.createQuery(sql)
+      .executeAndFetch(Activity.class);
     }
   }
 

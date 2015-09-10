@@ -28,7 +28,7 @@ public class Teacher {
     this.class_start_date = class_start_date;
     this.class_end_date = class_end_date;
     this.time = time;
-    this.time = activity_id;
+    this.activity_id = activity_id;
   }
 
   public int getId() {
@@ -46,16 +46,16 @@ public class Teacher {
   public String getExperience() {
     return experience;
   }
-  public String getNo_Of_Students() {
+  public int getNo_Of_Students() {
     return no_of_students;
   }
-  public String getFees() {
+  public double getFees() {
     return fees;
   }
   public String getLocation() {
     return location;
   }
-  public String getSpots_Available() {
+  public int getSpots_Available() {
     return spots_available;
   }
 
@@ -71,7 +71,7 @@ public class Teacher {
   }
 
   public int getActivity_id() {
-    return time;
+    return activity_id;
   }
 
 
@@ -84,13 +84,24 @@ public class Teacher {
     } else {
       Teacher newTeacher = (Teacher) otherTeacher;
       return this.getName().equals(newTeacher.getName()) &&
-             this.getId() == newTeacher.getId();
+      this.getId() == newTeacher.getId() &&
+      this.getQualification().equals(newTeacher.getQualification()) &&
+      this.getExperience().equals(newTeacher.getExperience()) &&
+      this.getNo_Of_Students() == newTeacher.getNo_Of_Students() &&
+      this.getFees() == newTeacher.getFees() &&
+      this.getLocation().equals(newTeacher.getLocation()) &&
+      this.getSpots_Available() == newTeacher.getSpots_Available() &&
+      this.getClass_Start_Date().equals(newTeacher.getClass_Start_Date()) &&
+      this.getClass_End_Date().equals(newTeacher.getClass_End_Date()) &&
+      this.getTime().equals(newTeacher.getTime()) &&
+      this.getActivity_id() == newTeacher.getActivity_id();
+
     }
   }
 
 
   public static List<Teacher> all() {
-    String sql = "SELECT * FROM Teachers";
+    String sql = "SELECT * FROM teachers";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Teacher.class);
     }
@@ -98,167 +109,61 @@ public class Teacher {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO Teachers(name, qualification, experience, no_of_students, fees, location, spots_available, class_start_date, class_end_date, time, activity_id) VALUES (:name, :qualification, :experience, :no_of_students, :fees, :location, :spots_available, :class_start_date, :class_end_date, :time, :activity_id)";
+      String sql = "INSERT INTO teachers(name, qualification, experience, no_of_students, fees, location, spots_available, class_start_date, class_end_date, time, activity_id) VALUES (:name, :qualification, :experience, :no_of_students, :fees, :location, :spots_available, :class_start_date, :class_end_date, :time, :activity_id)";
       this.id = (int) con.createQuery(sql, true)
-        .addParameter("name", name)
-        .addParameter("qualification", qualification)
-        .addParameter("experience", experience)
-        .addParameter("no_of_students", no_of_students)
-        .addParameter("fees", fees)
-        .addParameter("location", location)
-        .addParameter("spots_available", spots_available)
-        .addParameter("class_start_date", class_start_date)
-        .addParameter("class_end_date", class_end_date)
-        .addParameter("time", time)
-        .addParameter("activity_id", activity_id)
-        .executeUpdate()
-        .getKey();
+      .addParameter("name", name)
+      .addParameter("qualification", qualification)
+      .addParameter("experience", experience)
+      .addParameter("no_of_students", no_of_students)
+      .addParameter("fees", fees)
+      .addParameter("location", location)
+      .addParameter("spots_available", spots_available)
+      .addParameter("class_start_date", class_start_date)
+      .addParameter("class_end_date", class_end_date)
+      .addParameter("time", time)
+      .addParameter("activity_id", activity_id)
+      .executeUpdate()
+      .getKey();
     }
   }
 
   public static Teacher find(int id) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM Teachers where id=:id";
+      String sql = "SELECT * FROM teachers where id=:id";
       Teacher Teacher = con.createQuery(sql)
-        .addParameter("id", id)
-        .executeAndFetchFirst(Teacher.class);
+      .addParameter("id", id)
+      .executeAndFetchFirst(Teacher.class);
       return Teacher;
     }
   }
 
-  public void update(String name) {
+  public void update(String name,String qualification,String experience,int no_of_students, double fees,String address,int spots_avaialble, String class_start_date,String class_end_date, String time,Integer activity_id) {
     this.name = name;
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE Teachers SET name = :name WHERE id = :id";
+      String sql = "UPDATE teachers SET (name = :name,qualification =:qualification,experience =:experience,no_of_students =:no_of_students,fees =: fees,address =:address,spots_avaialble=:spots_avaialble,class_start_date=:class_start_date,class_end_date=:class_end_date,time=:time,activity_id=:activity_id) WHERE id = :id";
       con.createQuery(sql)
-        .addParameter("name", name)
-        .addParameter("id", id)
-        .executeUpdate();
+      .addParameter("name", name)
+      .addParameter("id", id)
+      .addParameter("qualification",qualification)
+      .addParameter("experience",experience)
+      .addParameter("no_of_students",no_of_students)
+      .addParameter("fees",fees)
+      .addParameter("address",address)
+      .addParameter("spots_avaialble",spots_avaialble)
+      .addParameter("class_start_date",class_start_date)
+      .addParameter("class_end_date",class_end_date)
+      .addParameter("time",time)
+      .addParameter("activity_id",activity_id)
+      .executeUpdate();
     }
   }
-
-  public void update(String qualification) {
-    this.qualification = qualification;
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE Teachers SET qualification = :qualification WHERE id = :id";
-      con.createQuery(sql)
-        .addParameter("qualification", qualification)
-        .addParameter("id", id)
-        .executeUpdate();
-    }
-  }
-
-  public void update(String experience) {
-    this.experience = experience;
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE Teachers SET experience = :experience WHERE id = :id";
-      con.createQuery(sql)
-        .addParameter("experience", experience)
-        .addParameter("id", id)
-        .executeUpdate();
-    }
-  }
-
-  public void update(String no_of_students) {
-    this.no_of_students = no_of_students;
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE Teachers SET no_of_students = :no_of_students WHERE id = :id";
-      con.createQuery(sql)
-        .addParameter("no_of_students", no_of_students)
-        .addParameter("id", id)
-        .executeUpdate();
-    }
-  }
-
-  public void update(String fees) {
-    this.fees = fees;
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE Teachers SET fees = :fees WHERE id = :id";
-      con.createQuery(sql)
-        .addParameter("fees", fees)
-        .addParameter("id", id)
-        .executeUpdate();
-    }
-  }
-
-  public void update(String location) {
-    this.location = location;
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE Teachers SET location = :location WHERE id = :id";
-      con.createQuery(sql)
-        .addParameter("location", location)
-        .addParameter("id", id)
-        .executeUpdate();
-    }
-  }
-
-  public void update(String spots_available) {
-    this.spots_available = spots_available;
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE Teachers SET spots_available = :spots_available WHERE id = :id";
-      con.createQuery(sql)
-        .addParameter("spots_available", spots_available)
-        .addParameter("id", id)
-        .executeUpdate();
-    }
-  }
-
-  public void update(String class_start_date) {
-    this.class_start_date = class_start_date;
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE Teachers SET class_start_date = :class_start_date WHERE id = :id";
-      con.createQuery(sql)
-        .addParameter("class_start_date", class_start_date)
-        .addParameter("id", id)
-        .executeUpdate();
-    }
-  }
-
-  public void update(String class_end_date) {
-    this.class_end_date = class_end_date;
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE Teachers SET class_end_date = :class_end_date WHERE id = :id";
-      con.createQuery(sql)
-        .addParameter("class_end_date", class_end_date)
-        .addParameter("id", id)
-        .executeUpdate();
-    }
-  }
-
-  public void update(String time) {
-    this.time = time;
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE Teachers SET time = :time WHERE id = :id";
-      con.createQuery(sql)
-        .addParameter("time", time)
-        .addParameter("id", id)
-        .executeUpdate();
-    }
-  }
-
-  public void update(int activity_id) {
-    this.activity_id = activity_id;
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE Teachers SET activity_id = :activity_id WHERE id = :id";
-      con.createQuery(sql)
-        .addParameter("activity_id", activity_id)
-        .addParameter("id", id)
-        .executeUpdate();
-    }
-  }
-
-
-
-
-
-
 
   public void delete() {
     try(Connection con = DB.sql2o.open()) {
-      String deleteQuery = "DELETE FROM Teachers WHERE id = :id;";
-        con.createQuery(deleteQuery)
-          .addParameter("id", id)
-          .executeUpdate();
+      String deleteQuery = "DELETE FROM teachers WHERE id = :id;";
+      con.createQuery(deleteQuery)
+      .addParameter("id", id)
+      .executeUpdate();
 
       // String joinDeleteQuery = "DELETE FROM Teachers_brands WHERE Teacher_id = :Teacher_id";
       //   con.createQuery(joinDeleteQuery)
@@ -271,18 +176,18 @@ public class Teacher {
     try(Connection con = DB.sql2o.open()) {
       String sql = "INSERT INTO student_activities (student_id, activity_id) VALUES (:student_id, :activity_id)";
       con.createQuery(sql)
-        .addParameter("student_id", student.getId())
-        .addParameter("activity_id", this.getId())
-        .executeUpdate();
+      .addParameter("student_id", student.getId())
+      .addParameter("activity_id", this.getId())
+      .executeUpdate();
     }
   }
 
-    public List<Student> getStudents() {
-      try(Connection con = DB.sql2o.open()) {
-        String sql = "SELECT students.* FROM teachers JOIN students_activities ON (students_activities.Teacher_id = Teachers.id) JOIN students ON (students_activities.student_id = student.id) WHERE Teacher_id=:id ";
-        return con.createQuery(sql)
-        .addParameter("id", id)
-        .executeAndFetch(Student.class);
+  public List<Student> getStudents() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT students.* FROM teachers JOIN students_activities ON (students_activities.Teacher_id = Teachers.id) JOIN students ON (students_activities.student_id = student.id) WHERE Teacher_id=:id ";
+      return con.createQuery(sql)
+      .addParameter("id", id)
+      .executeAndFetch(Student.class);
     }
   }
 
