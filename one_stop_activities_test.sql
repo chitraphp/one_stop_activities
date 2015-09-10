@@ -30,7 +30,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: activities; Type: TABLE; Schema: public; Owner: archanabongale; Tablespace: 
+-- Name: activities; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
 --
 
 CREATE TABLE activities (
@@ -40,10 +40,10 @@ CREATE TABLE activities (
 );
 
 
-ALTER TABLE activities OWNER TO archanabongale;
+ALTER TABLE activities OWNER TO "Guest";
 
 --
--- Name: activities_id_seq; Type: SEQUENCE; Schema: public; Owner: archanabongale
+-- Name: activities_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
 --
 
 CREATE SEQUENCE activities_id_seq
@@ -54,17 +54,17 @@ CREATE SEQUENCE activities_id_seq
     CACHE 1;
 
 
-ALTER TABLE activities_id_seq OWNER TO archanabongale;
+ALTER TABLE activities_id_seq OWNER TO "Guest";
 
 --
--- Name: activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: archanabongale
+-- Name: activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
 --
 
 ALTER SEQUENCE activities_id_seq OWNED BY activities.id;
 
 
 --
--- Name: students; Type: TABLE; Schema: public; Owner: archanabongale; Tablespace: 
+-- Name: students; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
 --
 
 CREATE TABLE students (
@@ -72,49 +72,14 @@ CREATE TABLE students (
     name character varying,
     age integer,
     phone character varying,
-    email character varying,
-    activity_enrolled character varying
+    email character varying
 );
 
 
-ALTER TABLE students OWNER TO archanabongale;
+ALTER TABLE students OWNER TO "Guest";
 
 --
--- Name: students_activities; Type: TABLE; Schema: public; Owner: archanabongale; Tablespace: 
---
-
-CREATE TABLE students_activities (
-    id integer NOT NULL,
-    student_id integer,
-    activity_id integer
-);
-
-
-ALTER TABLE students_activities OWNER TO archanabongale;
-
---
--- Name: students_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: archanabongale
---
-
-CREATE SEQUENCE students_activities_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE students_activities_id_seq OWNER TO archanabongale;
-
---
--- Name: students_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: archanabongale
---
-
-ALTER SEQUENCE students_activities_id_seq OWNED BY students_activities.id;
-
-
---
--- Name: students_id_seq; Type: SEQUENCE; Schema: public; Owner: archanabongale
+-- Name: students_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
 --
 
 CREATE SEQUENCE students_id_seq
@@ -125,17 +90,52 @@ CREATE SEQUENCE students_id_seq
     CACHE 1;
 
 
-ALTER TABLE students_id_seq OWNER TO archanabongale;
+ALTER TABLE students_id_seq OWNER TO "Guest";
 
 --
--- Name: students_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: archanabongale
+-- Name: students_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
 --
 
 ALTER SEQUENCE students_id_seq OWNED BY students.id;
 
 
 --
--- Name: teachers; Type: TABLE; Schema: public; Owner: archanabongale; Tablespace: 
+-- Name: students_teachers_activities; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+--
+
+CREATE TABLE students_teachers_activities (
+    id integer NOT NULL,
+    student_id integer,
+    teacher_id integer,
+    activity_id integer
+);
+
+
+ALTER TABLE students_teachers_activities OWNER TO "Guest";
+
+--
+-- Name: students_teachers_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+--
+
+CREATE SEQUENCE students_teachers_activities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE students_teachers_activities_id_seq OWNER TO "Guest";
+
+--
+-- Name: students_teachers_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+--
+
+ALTER SEQUENCE students_teachers_activities_id_seq OWNED BY students_teachers_activities.id;
+
+
+--
+-- Name: teachers; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
 --
 
 CREATE TABLE teachers (
@@ -154,10 +154,44 @@ CREATE TABLE teachers (
 );
 
 
-ALTER TABLE teachers OWNER TO archanabongale;
+ALTER TABLE teachers OWNER TO "Guest";
 
 --
--- Name: teachers_id_seq; Type: SEQUENCE; Schema: public; Owner: archanabongale
+-- Name: teachers_activities; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+--
+
+CREATE TABLE teachers_activities (
+    id integer NOT NULL,
+    activity_id integer,
+    teacher_id integer
+);
+
+
+ALTER TABLE teachers_activities OWNER TO "Guest";
+
+--
+-- Name: teachers_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+--
+
+CREATE SEQUENCE teachers_activities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE teachers_activities_id_seq OWNER TO "Guest";
+
+--
+-- Name: teachers_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+--
+
+ALTER SEQUENCE teachers_activities_id_seq OWNED BY teachers_activities.id;
+
+
+--
+-- Name: teachers_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
 --
 
 CREATE SEQUENCE teachers_id_seq
@@ -168,45 +202,52 @@ CREATE SEQUENCE teachers_id_seq
     CACHE 1;
 
 
-ALTER TABLE teachers_id_seq OWNER TO archanabongale;
+ALTER TABLE teachers_id_seq OWNER TO "Guest";
 
 --
--- Name: teachers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: archanabongale
+-- Name: teachers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
 --
 
 ALTER SEQUENCE teachers_id_seq OWNED BY teachers.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: archanabongale
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
 --
 
 ALTER TABLE ONLY activities ALTER COLUMN id SET DEFAULT nextval('activities_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: archanabongale
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
 --
 
 ALTER TABLE ONLY students ALTER COLUMN id SET DEFAULT nextval('students_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: archanabongale
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
 --
 
-ALTER TABLE ONLY students_activities ALTER COLUMN id SET DEFAULT nextval('students_activities_id_seq'::regclass);
+ALTER TABLE ONLY students_teachers_activities ALTER COLUMN id SET DEFAULT nextval('students_teachers_activities_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: archanabongale
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
 --
 
 ALTER TABLE ONLY teachers ALTER COLUMN id SET DEFAULT nextval('teachers_id_seq'::regclass);
 
 
 --
--- Data for Name: activities; Type: TABLE DATA; Schema: public; Owner: archanabongale
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
+--
+
+ALTER TABLE ONLY teachers_activities ALTER COLUMN id SET DEFAULT nextval('teachers_activities_id_seq'::regclass);
+
+
+--
+-- Data for Name: activities; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
 COPY activities (id, activity_type, description) FROM stdin;
@@ -214,44 +255,44 @@ COPY activities (id, activity_type, description) FROM stdin;
 
 
 --
--- Name: activities_id_seq; Type: SEQUENCE SET; Schema: public; Owner: archanabongale
+-- Name: activities_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
 SELECT pg_catalog.setval('activities_id_seq', 1, false);
 
 
 --
--- Data for Name: students; Type: TABLE DATA; Schema: public; Owner: archanabongale
+-- Data for Name: students; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY students (id, name, age, phone, email, activity_enrolled) FROM stdin;
+COPY students (id, name, age, phone, email) FROM stdin;
 \.
 
 
 --
--- Data for Name: students_activities; Type: TABLE DATA; Schema: public; Owner: archanabongale
---
-
-COPY students_activities (id, student_id, activity_id) FROM stdin;
-\.
-
-
---
--- Name: students_activities_id_seq; Type: SEQUENCE SET; Schema: public; Owner: archanabongale
---
-
-SELECT pg_catalog.setval('students_activities_id_seq', 1, false);
-
-
---
--- Name: students_id_seq; Type: SEQUENCE SET; Schema: public; Owner: archanabongale
+-- Name: students_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
 SELECT pg_catalog.setval('students_id_seq', 1, false);
 
 
 --
--- Data for Name: teachers; Type: TABLE DATA; Schema: public; Owner: archanabongale
+-- Data for Name: students_teachers_activities; Type: TABLE DATA; Schema: public; Owner: Guest
+--
+
+COPY students_teachers_activities (id, student_id, teacher_id, activity_id) FROM stdin;
+\.
+
+
+--
+-- Name: students_teachers_activities_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+--
+
+SELECT pg_catalog.setval('students_teachers_activities_id_seq', 1, false);
+
+
+--
+-- Data for Name: teachers; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
 COPY teachers (id, name, qualification, experience, no_of_students, fees, location, spots_avaialble, class_start_date, class_end_date, "time", activity_id) FROM stdin;
@@ -259,14 +300,29 @@ COPY teachers (id, name, qualification, experience, no_of_students, fees, locati
 
 
 --
--- Name: teachers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: archanabongale
+-- Data for Name: teachers_activities; Type: TABLE DATA; Schema: public; Owner: Guest
+--
+
+COPY teachers_activities (id, activity_id, teacher_id) FROM stdin;
+\.
+
+
+--
+-- Name: teachers_activities_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+--
+
+SELECT pg_catalog.setval('teachers_activities_id_seq', 1, false);
+
+
+--
+-- Name: teachers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
 SELECT pg_catalog.setval('teachers_id_seq', 1, false);
 
 
 --
--- Name: activities_pkey; Type: CONSTRAINT; Schema: public; Owner: archanabongale; Tablespace: 
+-- Name: activities_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
 --
 
 ALTER TABLE ONLY activities
@@ -274,15 +330,7 @@ ALTER TABLE ONLY activities
 
 
 --
--- Name: students_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: archanabongale; Tablespace: 
---
-
-ALTER TABLE ONLY students_activities
-    ADD CONSTRAINT students_activities_pkey PRIMARY KEY (id);
-
-
---
--- Name: students_pkey; Type: CONSTRAINT; Schema: public; Owner: archanabongale; Tablespace: 
+-- Name: students_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
 --
 
 ALTER TABLE ONLY students
@@ -290,7 +338,23 @@ ALTER TABLE ONLY students
 
 
 --
--- Name: teachers_pkey; Type: CONSTRAINT; Schema: public; Owner: archanabongale; Tablespace: 
+-- Name: students_teachers_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+--
+
+ALTER TABLE ONLY students_teachers_activities
+    ADD CONSTRAINT students_teachers_activities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: teachers_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+--
+
+ALTER TABLE ONLY teachers_activities
+    ADD CONSTRAINT teachers_activities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: teachers_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
 --
 
 ALTER TABLE ONLY teachers
@@ -298,12 +362,12 @@ ALTER TABLE ONLY teachers
 
 
 --
--- Name: public; Type: ACL; Schema: -; Owner: archanabongale
+-- Name: public; Type: ACL; Schema: -; Owner: Guest
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM archanabongale;
-GRANT ALL ON SCHEMA public TO archanabongale;
+REVOKE ALL ON SCHEMA public FROM "Guest";
+GRANT ALL ON SCHEMA public TO "Guest";
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
