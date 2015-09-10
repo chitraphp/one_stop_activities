@@ -110,7 +110,7 @@ public class Student {
 
     public void addActivity(Activity activity) {
       try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO students_activities (student_id,activity_id) VALUES (:student_id,:activity_id)";
+    //  String sql = "INSERT INTO students_activities (student_id,activity_id) VALUES (:student_id,:activity_id)";
       con.createQuery(sql)
       .addParameter("student_id",this.getId())
       .addParameter("activity_id",activity.getId())
@@ -125,6 +125,16 @@ public class Student {
       return con.createQuery(sql)
       .addParameter("id",id)
       .executeAndFetch(Activity.class);
+      }
+    }
+
+    public List<Student> getStudents() {
+      try(Connection con = DB.sql2o.open()) {
+
+    //  String sql = "SELECT activities .* FROM students JOIN students_activities ON (student.id = students_activities.student_id) JOIN activities ON (students_activities.activity_id = activity.id) WHERE students.id = :id ORDER BY name";
+      return con.createQuery(sql)
+      .addParameter("id",id)
+      .executeAndFetch(Student.class);
       }
     }
 
