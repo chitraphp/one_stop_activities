@@ -149,8 +149,8 @@ CREATE TABLE teachers (
     spots_avaialble integer,
     class_start_date character varying,
     class_end_date character varying,
-    "time" character varying,
-    activity_id integer
+    activity_id integer,
+    class_time character varying
 );
 
 
@@ -295,7 +295,7 @@ SELECT pg_catalog.setval('students_teachers_activities_id_seq', 1, false);
 -- Data for Name: teachers; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY teachers (id, name, qualification, experience, no_of_students, fees, location, spots_avaialble, class_start_date, class_end_date, "time", activity_id) FROM stdin;
+COPY teachers (id, name, qualification, experience, no_of_students, fees, location, spots_avaialble, class_start_date, class_end_date, activity_id, class_time) FROM stdin;
 \.
 
 
