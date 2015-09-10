@@ -13,11 +13,9 @@ public class Teacher {
   private int spots_available;
   private String class_start_date;
   private String class_end_date;
-  private String time;
-  private int activity_id;
+  private String class_time;
 
-
-  public Teacher(String name, String qualification, String experience, int no_of_students, double fees, String location, int spots_available,String class_start_date,String class_end_date,String time, int activity_id) {
+  public Teacher(String name, String qualification, String experience, int no_of_students, double fees, String location, int spots_available,String class_start_date,String class_end_date,String class_time) {
     this.name = name;
     this.qualification = qualification;
     this.experience = experience;
@@ -27,8 +25,7 @@ public class Teacher {
     this.spots_available = spots_available;
     this.class_start_date = class_start_date;
     this.class_end_date = class_end_date;
-    this.time = time;
-    this.activity_id = activity_id;
+    this.class_time = class_time;
   }
 
   public int getId() {
@@ -67,12 +64,9 @@ public class Teacher {
     return class_end_date;
   }
   public String getTime() {
-    return time;
+    return class_time;
   }
 
-  public int getActivity_id() {
-    return activity_id;
-  }
 
 
 
@@ -93,8 +87,7 @@ public class Teacher {
       this.getSpots_Available() == newTeacher.getSpots_Available() &&
       this.getClass_Start_Date().equals(newTeacher.getClass_Start_Date()) &&
       this.getClass_End_Date().equals(newTeacher.getClass_End_Date()) &&
-      this.getTime().equals(newTeacher.getTime()) &&
-      this.getActivity_id() == newTeacher.getActivity_id();
+      this.getTime().equals(newTeacher.getTime());
 
     }
   }
@@ -109,7 +102,7 @@ public class Teacher {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO teachers(name, qualification, experience, no_of_students, fees, location, spots_available, class_start_date, class_end_date, time, activity_id) VALUES (:name, :qualification, :experience, :no_of_students, :fees, :location, :spots_available, :class_start_date, :class_end_date, :time, :activity_id)";
+      String sql = "INSERT INTO teachers(name, qualification, experience, no_of_students, fees, location, spots_available, class_start_date, class_end_date, class_time) VALUES (:name, :qualification, :experience, :no_of_students, :fees, :location, :spots_available, :class_start_date, :class_end_date, :time, :activity_id)";
       this.id = (int) con.createQuery(sql, true)
       .addParameter("name", name)
       .addParameter("qualification", qualification)
@@ -120,8 +113,7 @@ public class Teacher {
       .addParameter("spots_available", spots_available)
       .addParameter("class_start_date", class_start_date)
       .addParameter("class_end_date", class_end_date)
-      .addParameter("time", time)
-      .addParameter("activity_id", activity_id)
+      .addParameter("class_time", class_time)
       .executeUpdate()
       .getKey();
     }
@@ -137,10 +129,10 @@ public class Teacher {
     }
   }
 
-  public void update(String name,String qualification,String experience,int no_of_students, double fees,String address,int spots_avaialble, String class_start_date,String class_end_date, String time,Integer activity_id) {
+  public void update(String name,String qualification,String experience,int no_of_students, double fees,String address,int spots_avaialble, String class_start_date,String class_end_date, String class_time) {
     this.name = name;
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE teachers SET (name = :name,qualification =:qualification,experience =:experience,no_of_students =:no_of_students,fees =: fees,address =:address,spots_avaialble=:spots_avaialble,class_start_date=:class_start_date,class_end_date=:class_end_date,time=:time,activity_id=:activity_id) WHERE id = :id";
+      String sql = "UPDATE teachers SET (name = :name,qualification =:qualification,experience =:experience,no_of_students =:no_of_students,fees =: fees,address =:address,spots_avaialble=:spots_avaialble,class_start_date=:class_start_date,class_end_date=:class_end_date,class_time=:class_time) WHERE id = :id";
       con.createQuery(sql)
       .addParameter("name", name)
       .addParameter("id", id)
@@ -152,8 +144,7 @@ public class Teacher {
       .addParameter("spots_avaialble",spots_avaialble)
       .addParameter("class_start_date",class_start_date)
       .addParameter("class_end_date",class_end_date)
-      .addParameter("time",time)
-      .addParameter("activity_id",activity_id)
+      .addParameter("class_time",class_time)
       .executeUpdate();
     }
   }
@@ -172,24 +163,24 @@ public class Teacher {
     }
   }
 
-  public void addStudent(Student student) {
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO student_activities (student_id, activity_id) VALUES (:student_id, :activity_id)";
-      con.createQuery(sql)
-      .addParameter("student_id", student.getId())
-      .addParameter("activity_id", this.getId())
-      .executeUpdate();
-    }
-  }
-
-  public List<Student> getStudents() {
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT students.* FROM teachers JOIN students_activities ON (students_activities.Teacher_id = Teachers.id) JOIN students ON (students_activities.student_id = student.id) WHERE Teacher_id=:id ";
-      return con.createQuery(sql)
-      .addParameter("id", id)
-      .executeAndFetch(Student.class);
-    }
-  }
+  // public void addStudent(Student student) {
+  //   try(Connection con = DB.sql2o.open()) {
+  //     String sql = "INSERT INTO student_activities (student_id, activity_id) VALUES (:student_id, :activity_id)";
+  //     con.createQuery(sql)
+  //     .addParameter("student_id", student.getId())
+  //     .addParameter("activity_id", this.getId())
+  //     .executeUpdate();
+  //   }
+  // }
+  //
+  // public List<Student> getStudents() {
+  //   try(Connection con = DB.sql2o.open()) {
+  //     String sql = "SELECT students.* FROM teachers JOIN students_activities ON (students_activities.Teacher_id = Teachers.id) JOIN students ON (students_activities.student_id = student.id) WHERE Teacher_id=:id ";
+  //     return con.createQuery(sql)
+  //     .addParameter("id", id)
+  //     .executeAndFetch(Student.class);
+  //   }
+  // }
 
 
 }
