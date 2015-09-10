@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Student {
   private int id;
   private String name;
-  private String age;
+  private int age;
   private String phone;
   private String email;
 
@@ -18,7 +18,7 @@ public class Student {
     return name;
   }
 
-  public String getAge() {
+  public int getAge() {
     return age;
   }
 
@@ -31,7 +31,7 @@ public class Student {
   }
 
 
-  public Student(String name, String age, String phone, String email) {
+  public Student(String name, int age, String phone, String email) {
     this.name = name;
     this.age = age;
     this.phone = phone;
@@ -46,7 +46,7 @@ public class Student {
       Student newStudent = (Student) otherStudent;
       return this.getId() == newStudent.getId() &&
       this.getName().equals(newStudent.getName()) &&
-      this.getAge().equals(newStudent.getAge()) &&
+      this.getAge() == newStudent.getAge() &&
       this.getPhone().equals(newStudent.getPhone()) &&
       this.getEmail().equals(newStudent.getEmail());
 
@@ -102,16 +102,17 @@ public class Student {
       }
     }
 
-    // public void addActivity(Activity activity) {
-    //   try(Connection con = DB.sql2o.open()) {
-    //   String sql = "INSERT INTO students_activities (student_id,activity_id) VALUES (:student_id,:activity_id)";
-    //   con.createQuery(sql)
-    //   .addParameter("student_id",this.getId())
-    //   .addParameter("activity_id",activity.getId())
-    //   .executeUpdate();
-    //   }
-    // }
-    //
+    public void addActivity(Activity activity, Teacher teacher) {
+      try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO teachers_activities_students (student_id,activity_id,teacher_id) VALUES (:student_id,:activity_id,:teacher_id)";
+      con.createQuery(sql)
+      .addParameter("student_id",this.getId())
+      .addParameter("activity_id",activity.getId())
+      .addParameter("teacher_id",teacher.getId())
+      .executeUpdate();
+      }
+    }
+
     public List<Activity> getActivities() {
       try(Connection con = DB.sql2o.open()) {
 
