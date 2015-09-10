@@ -83,7 +83,7 @@ public class Activity {
       .addParameter("id", id)
       .executeUpdate();
 
-      String joinDeleteQuery = "DELETE FROM students_activities WHERE activity_id = :activityId";
+      String joinDeleteQuery = "DELETE FROM students_teachers_activities WHERE activity_id = :activityId";
       con.createQuery(joinDeleteQuery)
       .addParameter("activityId", this.getId())
       .executeUpdate();
