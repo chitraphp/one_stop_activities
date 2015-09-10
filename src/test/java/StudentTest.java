@@ -12,38 +12,49 @@ public class StudentTest {
     assertEquals(Student.all().size(), 0);
   }
 
-  // @Test
-  // public void equals_returnsTrueIfDescriptionsAretheSame() {
-  //   Store firstStore = new Store("Target");
-  //   Store secondStore = new Store("Target");
-  //   assertTrue(firstStore.equals(secondStore));
-  // }
-  //
-  // @Test
-  // public void find_findsStoreInDatabase_true() {
-  //   Store myStore = new Store("Target");
-  //   myStore.save();
-  //   Store savedStore = Store.find(myStore.getId());
-  //   assertTrue(myStore.equals(savedStore));
-  // }
-  //
-  // @Test
-  // public void addBrand_addsBrandToStore() {
-  //   Brand myBrand = new Brand("Nike");
-  //   myBrand.save();
-  //
-  //   Store myStore = new Store("Target");
-  //   myStore.save();
-  //
-  //   myStore.addBrand(myBrand);
-  //   Brand savedBrand = myStore.getBrands().get(0);
-  //   assertTrue(myBrand.equals(savedBrand));
-  // }
-  //
+  @Test
+  public void equals_returnsTrueIfDescriptionsAretheSame() {
+    Student firstStudent = new Student("chitra", 23, "503-789-3298", "xsa@gmail.com");
+    Student secondStudent = new Student("chitra", 23, "503-789-3298", "xsa@gmail.com");
+    assertTrue(firstStudent.equals(secondStudent));
+  }
+
+  @Test
+  public void find_findsstudentInDatabase_true() {
+    Student myStudent = new Student("chitra", 23, "503-789-3298", "xsa@gmail.com");
+    myStudent.save();
+    Student savedStudent = Student.find(myStudent.getId());
+    assertTrue(myStudent.equals(savedStudent));
+  }
+
+  @Test
+  public void addActivity_addsActivityToStudent() {
+    Student myStudent = new Student("chitra", 23, "503-789-3298", "xsa@gmail.com");
+    myStudent.save();
+
+    Activity myFirstActivity = new Activity("swimming", "aaaaaaaaa");
+    myFirstActivity.save();
+
+    Activity mySecondActivity = new Activity("yoga", "yogaaaaaaaaaa");
+    mySecondActivity.save();
+
+    Teacher myFirstTeacher = new Teacher("teach1", "Quali1", "low", 10, 23.00,"loca1", 5, "2015-09-09", "2015-10-10", "12.00");
+    myFirstTeacher.save();
+
+    Teacher mySecondTeacher = new Teacher("teach2", "Quali2", "low", 10, 23.00,"loca2", 5, "2015-09-09", "2015-10-10", "12.00");
+    mySecondTeacher.save();
+
+
+
+    myStore.addBrand(myBrand);
+    Brand savedBrand = myStore.getBrands().get(0);
+    assertTrue(myStudentequals(savedBrand));
+  }
+
   // @Test
   // public void getBrands_returnsAllBrands_ArrayList() {
   //   Brand myBrand = new Brand("Nike");
-  //   myBrand.save();
+  //   myStudentsave();
   //
   //   Store myStore = new Store("Target");
   //   myStore.save();
