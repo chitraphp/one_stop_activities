@@ -10,14 +10,14 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -30,7 +30,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: activities; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+-- Name: activities; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
 --
 
 CREATE TABLE activities (
@@ -64,7 +64,7 @@ ALTER SEQUENCE activities_id_seq OWNED BY activities.id;
 
 
 --
--- Name: students; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+-- Name: students; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
 --
 
 CREATE TABLE students (
@@ -100,7 +100,7 @@ ALTER SEQUENCE students_id_seq OWNED BY students.id;
 
 
 --
--- Name: students_teachers_activities; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+-- Name: students_teachers_activities; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
 --
 
 CREATE TABLE students_teachers_activities (
@@ -135,7 +135,7 @@ ALTER SEQUENCE students_teachers_activities_id_seq OWNED BY students_teachers_ac
 
 
 --
--- Name: teachers; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+-- Name: teachers; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
 --
 
 CREATE TABLE teachers (
@@ -157,7 +157,7 @@ CREATE TABLE teachers (
 ALTER TABLE teachers OWNER TO "Guest";
 
 --
--- Name: teachers_activities; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+-- Name: teachers_activities; Type: TABLE; Schema: public; Owner: Guest; Tablespace:
 --
 
 CREATE TABLE teachers_activities (
@@ -322,7 +322,7 @@ SELECT pg_catalog.setval('teachers_id_seq', 1, false);
 
 
 --
--- Name: activities_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+-- Name: activities_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
 --
 
 ALTER TABLE ONLY activities
@@ -330,7 +330,7 @@ ALTER TABLE ONLY activities
 
 
 --
--- Name: students_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+-- Name: students_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
 --
 
 ALTER TABLE ONLY students
@@ -338,7 +338,7 @@ ALTER TABLE ONLY students
 
 
 --
--- Name: students_teachers_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+-- Name: students_teachers_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
 --
 
 ALTER TABLE ONLY students_teachers_activities
@@ -346,7 +346,7 @@ ALTER TABLE ONLY students_teachers_activities
 
 
 --
--- Name: teachers_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+-- Name: teachers_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
 --
 
 ALTER TABLE ONLY teachers_activities
@@ -354,7 +354,7 @@ ALTER TABLE ONLY teachers_activities
 
 
 --
--- Name: teachers_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+-- Name: teachers_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace:
 --
 
 ALTER TABLE ONLY teachers
@@ -374,4 +374,3 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
-
