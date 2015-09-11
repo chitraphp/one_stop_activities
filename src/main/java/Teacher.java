@@ -172,5 +172,15 @@ public class Teacher {
     }
   }
 
+  // public int studentsCount() {
+  //   try(Connection con = DB.sql2o.open()) {
+  //     String sql = "SELECT students.* FROM teachers JOIN students_teachers_activities ON (students_teachers_activities.Teacher_id = Teachers.id) JOIN students ON (students_teachers_activities.student_id = students.id) join activities ON (students_teachers_activities.activity_id = activities.id) WHERE Teacher_id=:id ";
+  //     return con.createQuery(sql)
+  //     .addParameter("id", id)
+  //     .executeAndFetch(Student.class);
+  //   }
+  //
+  // }
+
 
 }
