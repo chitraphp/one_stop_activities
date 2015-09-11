@@ -58,6 +58,9 @@ public class TeacherTest {
       Student myStudent = new Student("chitra", 23, "503-789-3298", "xsa@gmail.com");
       myStudent.save();
 
+      Student mySecondStudent = new Student("chitra2", 29, "503-789-3298", "mnba@gmail.com");
+      mySecondStudent.save();
+
 
       Activity myFirstActivity = new Activity("swimming", "aaaaaaaaa");
       myFirstActivity.save();
@@ -73,7 +76,9 @@ public class TeacherTest {
 
       myStudent.addActivity(myFirstActivity,myFirstTeacher);
       myStudent.addActivity(mySecondActivity,mySecondTeacher);
-      assertEquals("chitra", myFirstTeacher.getStudents().get(0).getName());
+      mySecondStudent.addActivity(myFirstActivity,myFirstTeacher);
+      Integer i = 2;
+      assertEquals(i, myFirstTeacher.availableSeats());
     }
 
 
