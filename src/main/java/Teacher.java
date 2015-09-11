@@ -171,6 +171,8 @@ public class Teacher {
       .executeAndFetch(Student.class);
     }
   }
+// ADD ACTIVITY METHOD
+
 
   // public int studentsCount() {
   //   try(Connection con = DB.sql2o.open()) {
