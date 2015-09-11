@@ -1,0 +1,36 @@
+<h1>$teacher.getName()</h1>
+
+
+<p>Add a new Activity:</p>
+
+<form action="/activities" method="post">
+  <label for="type">Activity Name</label>
+  <input id="type" name="type" type="text">
+
+  <button type="submit">Add Activity</button>
+</form>
+
+
+<p><a href='/'>Home</a></p>
+
+
+
+
+
+
+
+<!-- #if($teacher.getActivities())
+  <p>Here are the activities for this teacher:</p>
+  <ul>
+    #foreach($activity in $teacher.getActivity())
+      <li>$activity.getName()</li>
+    #end
+  </ul>
+#end
+
+<label for="activity_id">Select an activity</label>
+<select id="activity_id" name="activity_id" type='text'>
+  #foreach($activity in $allActivities)
+    <option value="$activity.getId()"> $activity.getName() </option>
+  #end
+</select> -->
