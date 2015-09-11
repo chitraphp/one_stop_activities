@@ -183,8 +183,6 @@ public class Teacher {
     }
   }
 
-
-
   public Integer availableSeats() {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT COUNT(students.*) FROM teachers JOIN students_teachers_activities ON (students_teachers_activities.teacher_id = teachers.id) JOIN students ON (students_teachers_activities.student_id = students.id) join activities ON (students_teachers_activities.activity_id = activities.id) WHERE teacher_id=:id ";
@@ -195,9 +193,6 @@ public class Teacher {
     }
 
   }
-  // Statement s = cd.createStatement();
-  // ResultSet r = s.executeQuery("SELECT COUNT(*) AS rowcount FROM FieldMaster");
-  // r.next();
-  // int count = r.getInt("rowcount");
+  
 
 }
