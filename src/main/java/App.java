@@ -38,19 +38,31 @@ public class App {
     return null;
   });
 
-// post("/add_teacher", (request, response) -> {
-//   HashMap<String, Object> model = new HashMap<String, Object>();
-//   String student_id = request.queryParams("student_id");
-//   String activity_id = request.queryParams("activity_id");
-//   String teacher_id = request.queryParams("teacher_id");
-//   Student student = Student.find(id);
-//   student.addActivity(activity_id,teacher_id);
-//
-//   model.put("student", student);
-//   model.put("template", "templates/student_activities.vtl");
-//   return null;
-// });
-//
+  post("/student_activity", (request, response) -> {
+    HashMap<String, Object> model = new HashMap<String, Object>();
+    int id = Integer.parseInt(request.queryParams("activity_id"));
+    Activity activity = new activity.find(id)
+    model.put("activity", activity);
+    model.put("template", "templates/student_teacher.vtl");
+    return new ModelAndView(model, layout);
+  }, new VelocityTemplateEngine());
+
+
+  post("/add_teacher", (request, response) -> {
+    HashMap<String, Object> model = new HashMap<String, Object>();
+    int student_id = Integer.parseInt(request.queryParams("student_id"));
+    int activity_id = Integer.parseInt(request.queryParams("activity_id"));
+    int teacher_id = Integer.parseInt(request.queryParams("teacher_id"));
+    Student student = Student.find(student_id);
+    student.addActivity(activity_id,teacher_id);
+    List<Activity>  activities = student.getActivities();
+
+    model.put("student", student);
+    model.put("activities",activities);
+    model.put("template", "templates/student_activities.vtl");
+    return null;
+  });
+
 // post("/teachers", (request, response) -> {
 //   HashMap<String, Object> model = new HashMap<String, Object>();
 //   String teacher_id = request.queryParams("teacher_id");
