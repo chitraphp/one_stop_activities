@@ -122,10 +122,10 @@ public class Teacher {
   public static Teacher find(int id) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT * FROM teachers where id=:id";
-      Teacher Teacher = con.createQuery(sql)
+      Teacher teacher = con.createQuery(sql)
       .addParameter("id", id)
       .executeAndFetchFirst(Teacher.class);
-      return Teacher;
+      return teacher;
     }
   }
 
@@ -173,16 +173,31 @@ public class Teacher {
   }
 // ADD ACTIVITY METHOD
 
+  public void addActivity( Activity activity) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO teachers_activities (activity_id, teacher_id) VALUES (:activity_id,:id)";
+      con.createQuery(sql)
+      .addParameter("id", id)
+      .addParameter("activity_id", activity.getId())
+      .executeUpdate();
+    }
+  }
 
-  // public int studentsCount() {
-  //   try(Connection con = DB.sql2o.open()) {
-  //     String sql = "SELECT students.* FROM teachers JOIN students_teachers_activities ON (students_teachers_activities.Teacher_id = Teachers.id) JOIN students ON (students_teachers_activities.student_id = students.id) join activities ON (students_teachers_activities.activity_id = activities.id) WHERE Teacher_id=:id ";
-  //     return con.createQuery(sql)
-  //     .addParameter("id", id)
-  //     .executeAndFetch(Student.class);
-  //   }
-  //
-  // }
 
+
+  public Integer availableSeats() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT COUNT(students.*) FROM teachers JOIN students_teachers_activities ON (students_teachers_activities.teacher_id = teachers.id) JOIN students ON (students_teachers_activities.student_id = students.id) join activities ON (students_teachers_activities.activity_id = activities.id) WHERE teacher_id=:id ";
+
+       return con.createQuery(sql)
+       .addParameter("id", id)
+       .executeScalar(Integer.class);
+    }
+
+  }
+  // Statement s = cd.createStatement();
+  // ResultSet r = s.executeQuery("SELECT COUNT(*) AS rowcount FROM FieldMaster");
+  // r.next();
+  // int count = r.getInt("rowcount");
 
 }
