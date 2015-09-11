@@ -1,0 +1,44 @@
+<h1>newStudent.getName()</h1>
+<h1>Add Activities</h1>
+<form action="/student_activity" method="post">
+<label for="activity_id">Select an activity</label>
+<select id="activity_id" name="activity_id" type='text'>
+  #foreach($activity in $allActivities)
+    <option value="$activity.getId()"> $activity.getName() </option>
+  #end
+</select>
+<button type='submit'>Select Activity</button>
+</form>
+
+<!-- <div id="teachers" name="teachers">
+<p>Here are the teachers for this activity:</p>
+#if($activity.getTeachers())
+  <ul>
+    #foreach($teacher in $activity.getTeachers())
+      <li>$teacher.getName() & nbsp $teacher.getQualification() &nbsp $teacher.getExperience() &nbsp $teacher.getNo_Of_Students() &nbsp $teacher.getFees() &nbsp $teacher.getLocation() &nbsp $teacher.getSpots_Available() &nbsp $teacher.getClass_Start_Date() &nbsp $teacher.getClass_End_Date() &nbsp $teacher.getClass_Time()</li>
+    #end
+  </ul>
+#end
+</div>
+
+
+
+<h4>Add a Teacher to this Activity:</h4>
+
+<form action="/add_teacher" method='post'>
+    <input id="activity_id" name="activity_id" type="hidden" value="$activity.getId()">
+    <input id="student_id" name="student_id" type="hidden" value="$student.getId()">
+    <label for="teacher_id">Select a teacher</label>
+    <select id="teacher_id" name="teacher_id" type='text'>
+      #foreach($teacher in $allTeachers)
+        <option value="$teacher.getId()"> $teacher.getName() </option>
+      #end
+    </select>
+    <button type='submit'>Add teacher</button>
+</form> -->
+
+<!-- <p><a href="/activitys/$activity.getId()/edit">Edit this activity</a></p>
+<p><a href="/activitys/$activity.getId()/delete">Delete this activity</a></p> -->
+
+
+<p><a href='/'>Home</a></p>

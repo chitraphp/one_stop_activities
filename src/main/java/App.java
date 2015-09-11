@@ -7,39 +7,37 @@ import java.util.Map;
 
 public class App {
   public static void main(String[] args) {
-//     staticFileLocation("/public");
-//     String layout = "templates/layout.vtl";
-//   }
-//
-//   get("/", (request, response) -> {
-//   HashMap<String, Object> model = new HashMap<String, Object>();
-//   model.put("template", "templates/index.vtl");
-//   return new ModelAndView(model, layout);
-// }, new VelocityTemplateEngine());
-//
-// /* Index --> Stores*/
-// get("/students", (request, response) -> {
-//   HashMap<String, Object> model = new HashMap<String, Object>();
-//
-//   model.put("template", "templates/student.vtl");
-//   return new ModelAndView(model, layout);
-// }, new VelocityTemplateEngine());
-//
-// /* Store list/form --> POST a new store */
-// post("/add_student_info", (request, response) -> {
-//   HashMap<String, Object> model = new HashMap<String, Object>();
-//   String name = request.queryParams("name");
-//   String age = request.queryParams("age");
-//   String phone = request.queryParams("phone");
-//   String email = request.queryParams("email");
-//   Student newStudent = new Student(name,age,phone,email);
-//   newStudent.save();
-//
-//   model.put("newStudent", newStudent);
-//   model.put("template", "templates/student_activities.vtl");
-//   return null;
-// });
-//
+    staticFileLocation("/public");
+    String layout = "templates/layout.vtl";
+  }
+
+  get("/", (request, response) -> {
+  HashMap<String, Object> model = new HashMap<String, Object>();
+  model.put("template", "templates/index.vtl");
+  return new ModelAndView(model, layout);
+}, new VelocityTemplateEngine());
+
+  get("/students", (request, response) -> {
+    HashMap<String, Object> model = new HashMap<String, Object>();
+
+    model.put("template", "templates/student.vtl");
+    return new ModelAndView(model, layout);
+  }, new VelocityTemplateEngine());
+
+  post("/add_student_info", (request, response) -> {
+    HashMap<String, Object> model = new HashMap<String, Object>();
+    String name = request.queryParams("name");
+    String age = request.queryParams("age");
+    String phone = request.queryParams("phone");
+    String email = request.queryParams("email");
+    Student newStudent = new Student(name,age,phone,email);
+    newStudent.save();
+    model.put("newStudent", newStudent);
+    model.put("allActivities", Activity.all());
+    model.put("template", "templates/student_activities.vtl");
+    return null;
+  });
+
 // post("/add_teacher", (request, response) -> {
 //   HashMap<String, Object> model = new HashMap<String, Object>();
 //   String student_id = request.queryParams("student_id");
