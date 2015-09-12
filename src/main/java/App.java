@@ -9,7 +9,7 @@ public class App {
   public static void main(String[] args) {
     staticFileLocation("/public");
     String layout = "templates/layout.vtl";
-  }
+
 
   get("/", (request, response) -> {
   HashMap<String, Object> model = new HashMap<String, Object>();
@@ -41,7 +41,7 @@ public class App {
   post("/student_activity", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
     int id = Integer.parseInt(request.queryParams("activity_id"));
-    Activity activity = new activity.find(id)
+    Activity activity = new activity.find(id);
     model.put("activity", activity);
     model.put("activities", Activity.all());
     model.put("template", "templates/student_teacher.vtl");

@@ -77,12 +77,11 @@ public class Teacher {
       this.getId() == newTeacher.getId() &&
       this.getQualification().equals(newTeacher.getQualification()) &&
       this.getExperience().equals(newTeacher.getExperience()) &&
-      this.getNo_Of_Students() == newTeacher.getNo_Of_Students() &&
+      this.getNoOfStudents() == newTeacher.getNoOfStudents() &&
       this.getFees() == newTeacher.getFees() &&
       this.getLocation().equals(newTeacher.getLocation()) &&
-      this.getSpots_Available() == newTeacher.getSpots_Available() &&
-      this.getClass_Start_Date().equals(newTeacher.getClass_Start_Date()) &&
-      this.getClass_End_Date().equals(newTeacher.getClass_End_Date()) &&
+      this.getClassStartDate().equals(newTeacher.getClassStartDate()) &&
+      this.getClassEndDate().equals(newTeacher.getClassEndDate()) &&
       this.getTime().equals(newTeacher.getTime());
 
     }
@@ -191,6 +190,7 @@ public class Teacher {
   public int availableSeats() {
   int regStudents = registerStudents().intValue();
   int availableSeats = no_of_students - regStudents;
+  
 
   }
 
