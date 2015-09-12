@@ -1,0 +1,25 @@
+<h1>Student Activities!</h1>
+<div class="row">
+  <div name="students" id="students" class="col-md-6" float="left">
+    <table class="table">
+      <thead><th>Students Activities List</th></thead>
+      <tbody>
+        #foreach ($student in $students)
+        <tr class="success">
+          <td>
+            $student.getName()
+          </td>
+          <td>
+            <tr>
+              #foreach ($activity in $student.getActivities())
+              <td>$activity.getName()</td>
+              <td>$activity.getStudentActivityTeacher($activity.getId())</td>  
+
+            </tr>
+          </td>
+        </tr>
+        #end
+      </tbody>
+
+    </table>
+  </div>

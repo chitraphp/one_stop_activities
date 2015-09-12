@@ -10,19 +10,19 @@ public class Teacher {
   private int no_of_students;
   private double fees;
   private String location;
-  private int spots_available;
+  //private int spots_available;
   private String class_start_date;
   private String class_end_date;
   private String class_time;
 
-  public Teacher(String name, String qualification, String experience, int no_of_students, double fees, String location, int spots_available,String class_start_date,String class_end_date,String class_time) {
+  public Teacher(String name, String qualification, String experience, int no_of_students, double fees, String location,String class_start_date,String class_end_date,String class_time) {
     this.name = name;
     this.qualification = qualification;
     this.experience = experience;
     this.no_of_students = no_of_students;
     this.fees = fees;
     this.location = location;
-    this.spots_available = spots_available;
+    //this.spots_available = spots_available;
     this.class_start_date = class_start_date;
     this.class_end_date = class_end_date;
     this.class_time = class_time;
@@ -43,7 +43,7 @@ public class Teacher {
   public String getExperience() {
     return experience;
   }
-  public int getNo_Of_Students() {
+  public int getNoOfStudents() {
     return no_of_students;
   }
   public double getFees() {
@@ -52,24 +52,20 @@ public class Teacher {
   public String getLocation() {
     return location;
   }
-  public int getSpots_Available() {
-    return spots_available;
-  }
+  // public int getSpots_Available() {
+  //   return spots_available;
+  // }
 
-  public String getClass_Start_Date() {
+  public String getClassStartDate() {
     return class_start_date;
   }
 
-  public String getClass_End_Date() {
+  public String getClassEndDate() {
     return class_end_date;
   }
   public String getTime() {
     return class_time;
   }
-
-
-
-
 
   @Override
   public boolean equals(Object otherTeacher){
@@ -110,7 +106,7 @@ public class Teacher {
       .addParameter("no_of_students", no_of_students)
       .addParameter("fees", fees)
       .addParameter("location", location)
-      .addParameter("spots_available", spots_available)
+      //.addParameter("spots_available", spots_available)
       .addParameter("class_start_date", class_start_date)
       .addParameter("class_end_date", class_end_date)
       .addParameter("class_time", class_time)
@@ -183,7 +179,7 @@ public class Teacher {
     }
   }
 
-  public Integer availableSeats() {
+  public Integer registerStudents() {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT COUNT(students.*) FROM teachers JOIN students_teachers_activities ON (students_teachers_activities.teacher_id = teachers.id) JOIN students ON (students_teachers_activities.student_id = students.id) join activities ON (students_teachers_activities.activity_id = activities.id) WHERE teacher_id=:id ";
 
@@ -191,8 +187,20 @@ public class Teacher {
        .addParameter("id", id)
        .executeScalar(Integer.class);
     }
+  }
+  public int availableSeats() {
+  int regStudents = registerStudents().intValue();
+  int availableSeats = no_of_students - regStudents;
 
   }
-  
+
+  public String getActivity() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT activities.activity_type FROM teachers JOIN teachers_activities ON (teachers_activities.teacher_id =  teachers.id) JOIN activities on (teachers_activities.activity_id = activities.id) WHERE teacher_id = :id";
+      con.createQuery(sql)
+      .addParameter("id", id)
+      .executeAndFetchFirst(String.class);
+    }
+  }
 
 }
