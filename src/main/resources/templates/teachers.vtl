@@ -1,55 +1,29 @@
-<h1>Teachers List</h1>
+<table class="table table-striped">
+    <tr>
+      <td>Name</td>
+      <td>Activity</td>
+      <td>Qualification</td>
+      <td>Experience</td>
+      <td>No_of_Students</td>
+      <td>fees</td>
+      <td>location</td>
+      <td>class_start_date</td>
+      <td>class_end_date</td>
+      <td>class_time</td>
+      <td>spots_available</td>
 
-<p>Add a new Teacher:</p>
-
-<form action="/teachers" method="post">
-  <label for="name">Teacher Name</label>
-  <input id="name" name="name" type="text">
-
-  <label for="qualification">Qualification</label>
-  <input id="qualification" name="qualification" type="text">
-
-  <label for="experience">Experience</label>
-  <input id="experience" name="experience" type="text">
-
-  <label for="activity_id">Select an activity</label>
-  <select id="activity_id" name="activity_id" type='text'>
-    #foreach($activity in $allActivities)
-      <option value="$activity.getId()"> $activity.getName() </option>
-    #end
-  </select>
-
-  <label for="no_of_students">No Of Students</label>
-  <input id="no_of_students" name="no_of_students" type="number">
-
-  <label for="fees">Fees</label>
-  <input id="fees" name="fees" type="number">
-
-  <label for="location">Location</label>
-  <input id="location" name="location" type="number">
-
-  <label for="spots_available">Spots Available</label>
-  <input id="spots_available" name="spots_available" type="number">
-
-  <label for="class_start_date">Start Date</label>
-  <input id="class_start_date" name="class_start_date" type="text">
-
-  <label for="class_end_date">End Date</label>
-  <input id="class_end_date" name="class_end_date" type="text">
-
-  <label for="class_time">Class Timings</label>
-  <input id="class_time" name="class_time" type="text">
-
-  <button type="submit">Add Teacher</button>
-</form>
-
-<a href='/new_activities'>Add new Activity</a>
-
-
-<!-- #foreach ($teacher in $teachers)
-  <li><a href="/teachers/$teacher.getId()">$teacher.getName()</a>
-
-    </li>
-#end -->
-
-<p><a href='/'>Home</a></p>
+    </tr>
+    #foreach($teacher in $teachers)
+      <tr>
+        <td>$teacher.getName()</td>
+        <td>$teacher.getActivity()</td>
+        <td>$teacher.getQualification()</td>
+          <td>$teacher.getExperience</td>
+            <td>$teacher.getNoOfStudents</td>
+              <td>$teacher.getFees()</td>
+              <td>$teacher.get()</td>
+              <td>$teacher.getSpotsAvailable()</td>
+                <td>$teacher.getClassstartdate()</td>
+                <td>$teacher.getClassEndDate()</td>
+                <td>$teacher.getTime()</td>
+                <td>$teacher.availableSeats()</td>
