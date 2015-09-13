@@ -38,10 +38,10 @@ public class StudentTest {
     Activity mySecondActivity = new Activity("yoga", "yogaaaaaaaaaa");
     mySecondActivity.save();
 
-    Teacher myFirstTeacher = new Teacher("teach1", "Quali1", "low", 10, 23.00,"loca1", 5, "2015-09-09", "2015-10-10", "12.00");
+    Teacher myFirstTeacher = new Teacher("teach1", "Quali1", "low", 10, 23,"loca1", "2015-09-09", "2015-10-10", "12.00");
     myFirstTeacher.save();
 
-    Teacher mySecondTeacher = new Teacher("teach2", "Quali2", "low", 10, 23.00,"loca2", 5, "2015-09-09", "2015-10-10", "12.00");
+    Teacher mySecondTeacher = new Teacher("teach2", "Quali2", "low", 10, 23,"loca2", "2015-09-09", "2015-10-10", "12.00");
     mySecondTeacher.save();
 
     myStudent.addActivity(myFirstActivity,myFirstTeacher);
@@ -62,10 +62,10 @@ public class StudentTest {
     Activity mySecondActivity = new Activity("yoga", "yogaaaaaaaaaa");
     mySecondActivity.save();
 
-    Teacher myFirstTeacher = new Teacher("teach1", "Quali1", "low", 10, 23.00,"loca1", 5, "2015-09-09", "2015-10-10", "12.00");
+    Teacher myFirstTeacher = new Teacher("teach1", "Quali1", "low", 10, 23,"loca1", "2015-09-09", "2015-10-10", "12.00");
     myFirstTeacher.save();
 
-    Teacher mySecondTeacher = new Teacher("teach2", "Quali2", "low", 10, 23.00,"loca2", 5, "2015-09-09", "2015-10-10", "12.00");
+    Teacher mySecondTeacher = new Teacher("teach2", "Quali2", "low", 10, 23,"loca2", "2015-09-09", "2015-10-10", "12.00");
     mySecondTeacher.save();
 
     myStudent.addActivity(myFirstActivity,myFirstTeacher);

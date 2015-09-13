@@ -1,6 +1,6 @@
 <h1>Student Activities!</h1>
 <div class="row">
-  <div name="students" id="students" class="col-md-6" float="left">
+  <!-- <div name="students" id="students" class="col-md-6" float="left"> -->
     <table class="table">
       <thead><th>Students Activities List</th></thead>
       <tbody>
@@ -13,8 +13,9 @@
             <tr>
               #foreach ($activity in $student.getActivities())
               <td>$activity.getName()</td>
-              <td>$activity.getStudentActivityTeacher($activity.getId())</td>  
-
+              <td>$activity.getId()</td>
+              <td>$student.getStudentActivityTeacher($activity.getId()).getName()</td>
+              #end
             </tr>
           </td>
         </tr>

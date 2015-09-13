@@ -5,7 +5,7 @@
     <input id="student_id" name="student_id" type="hidden" value="$student.getId()">
     <label for="teacher_id">Select a teacher</label>
     <select id="teacher_id" name="teacher_id" type='text'>
-      #foreach($teacher in $allTeachers)
+      #foreach($teacher in $teachers)
         <option value="$teacher.getId()"> $teacher.getName() </option>
       #end
     </select>
