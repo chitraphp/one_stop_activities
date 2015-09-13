@@ -5,7 +5,8 @@ public class DatabaseRule extends ExternalResource {
 
   protected void before() {
 
-    DB.sql2o = new Sql2o("jdbc:postgresql://localhost:5432/one_stop_activities_test","chitra","1234");
+    //DB.sql2o = new Sql2o("jdbc:postgresql://localhost:5432/one_stop_activities_test","chitra","1234");
+    DB.sql2o = new Sql2o("jdbc:postgresql://localhost:5432/one_stop_activities_test",null,null);
    }
 
   protected void after() {
