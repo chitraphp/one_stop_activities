@@ -8,14 +8,14 @@ public class Teacher {
   private String qualification;
   private String experience;
   private int no_of_students;
-  private double fees;
+  private int fees;
   private String location;
   //private int spots_available;
   private String class_start_date;
   private String class_end_date;
   private String class_time;
 
-  public Teacher(String name, String qualification, String experience, int no_of_students, double fees, String location,String class_start_date,String class_end_date,String class_time) {
+  public Teacher(String name, String qualification, String experience, int no_of_students, int fees, String location,String class_start_date,String class_end_date,String class_time) {
     this.name = name;
     this.qualification = qualification;
     this.experience = experience;
@@ -97,7 +97,7 @@ public class Teacher {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO teachers(name, qualification, experience, no_of_students, fees, location, spots_available, class_start_date, class_end_date, class_time) VALUES (:name, :qualification, :experience, :no_of_students, :fees, :location, :spots_available, :class_start_date, :class_end_date, :class_time)";
+      String sql = "INSERT INTO teachers(name, qualification, experience, no_of_students, fees, location, class_start_date, class_end_date, class_time) VALUES (:name, :qualification, :experience, :no_of_students, :fees, :location, :class_start_date, :class_end_date, :class_time)";
       this.id = (int) con.createQuery(sql, true)
       .addParameter("name", name)
       .addParameter("qualification", qualification)
@@ -188,16 +188,16 @@ public class Teacher {
     }
   }
   public int availableSeats() {
-  int regStudents = registerStudents().intValue();
-  int availableSeats = no_of_students - regStudents;
-  
+  int regStudents = registerStudents();
+  int noOfVacancies = no_of_students - Integer.valueOf(regStudents);
+  return noOfVacancies;
 
   }
 
   public String getActivity() {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT activities.activity_type FROM teachers JOIN teachers_activities ON (teachers_activities.teacher_id =  teachers.id) JOIN activities on (teachers_activities.activity_id = activities.id) WHERE teacher_id = :id";
-      con.createQuery(sql)
+      return con.createQuery(sql)
       .addParameter("id", id)
       .executeAndFetchFirst(String.class);
     }

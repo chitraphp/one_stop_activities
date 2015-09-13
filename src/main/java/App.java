@@ -10,12 +10,18 @@ public class App {
     staticFileLocation("/public");
     String layout = "templates/layout.vtl";
 
-
   get("/", (request, response) -> {
-  HashMap<String, Object> model = new HashMap<String, Object>();
-  model.put("template", "templates/index.vtl");
-  return new ModelAndView(model, layout);
-}, new VelocityTemplateEngine());
+    HashMap<String, Object> model = new HashMap<String, Object>();
+    model.put("template", "templates/index.vtl");
+    return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/teachers", (request, response) -> {
+    HashMap<String, Object> model = new HashMap<String, Object>();
+    model.put("teachers", Teacher.all());
+    model.put("template", "templates/teachers.vtl");
+    return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
 
   get("/students", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
@@ -27,7 +33,7 @@ public class App {
   post("/students", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
     String name = request.queryParams("name");
-    String age = request.queryParams("age");
+    int age = Integer.parseInt(request.queryParams("age"));
     String phone = request.queryParams("phone");
     String email = request.queryParams("email");
     Student newStudent = new Student(name,age,phone,email);
@@ -40,10 +46,14 @@ public class App {
 
   post("/student_activity", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
-    int id = Integer.parseInt(request.queryParams("activity_id"));
-    Activity activity = new activity.find(id);
+    int activity_id = Integer.parseInt(request.queryParams("activity_id"));
+    int student_id = Integer.parseInt(request.queryParams("student_id"));
+    Student student = Student.find(student_id);
+    Activity activity = Activity.find(activity_id);
     model.put("activity", activity);
+    model.put("student", student);
     model.put("activities", Activity.all());
+    model.put("teachers", Teacher.all());
     model.put("template", "templates/student_teacher.vtl");
     return new ModelAndView(model, layout);
   }, new VelocityTemplateEngine());
@@ -55,7 +65,9 @@ public class App {
     int activity_id = Integer.parseInt(request.queryParams("activity_id"));
     int teacher_id = Integer.parseInt(request.queryParams("teacher_id"));
     Student student = Student.find(student_id);
-    student.addActivity(activity_id,teacher_id);
+    Teacher teacher = Teacher.find(teacher_id);
+    Activity activity = Activity.find(activity_id);
+    student.addActivity(activity,teacher);
     //List<Activity>  activities = student.getActivities();
 
     model.put("students", Student.all());
@@ -64,20 +76,28 @@ public class App {
     return new ModelAndView(model, layout);
   }, new VelocityTemplateEngine());
 
-post("/teachers", (request, response) -> {
+  get("/teacher", (request, response) -> {
+    HashMap<String, Object> model = new HashMap<String, Object>();
+    model.put("allActivities", Activity.all());
+    model.put("template", "templates/teacher.vtl");
+    return new ModelAndView(model, layout);
+  }, new VelocityTemplateEngine());
+
+
+post("/teacher", (request, response) -> {
   HashMap<String, Object> model = new HashMap<String, Object>();
-  int teacher_id = request.queryParams("teacher_id");
+  // int teacher_id = Integer.parseInt(request.queryParams("teacher_id"));
   String name = request.queryParams("name");
   String qualification = request.queryParams("qualification");
   String experience = request.queryParams("experience");
   int no_of_students = Integer.parseInt(request.queryParams("no_of_students"));
-  double fees = request.queryParams("fees");
+  int fees = Integer.parseInt(request.queryParams("fees"));
   String location = request.queryParams("location");
   //String spots_available = request.queryParams("spots_available");
   String class_start_date = request.queryParams("class_start_date");
   String class_end_date = request.queryParams("class_end_date");
   String class_time = request.queryParams("class_time");
-  String activity_id = request.queryParams("activity_id");
+  int activity_id = Integer.parseInt(request.queryParams("activity_id"));
   Activity activity = Activity.find(activity_id);
   Teacher newTeacher = new Teacher(name,qualification,experience,no_of_students,fees,location,class_start_date,class_end_date,class_time);
   newTeacher.save();
@@ -87,27 +107,29 @@ post("/teachers", (request, response) -> {
   model.put("template", "templates/teachers.vtl");
   return new ModelAndView(model, layout);
   }, new VelocityTemplateEngine());
-//
-// get("/activities", (request, response) -> {
-//   HashMap<String, Object> model = new HashMap<String, Object>();
-//
-//   model.put("template", "templates/activity.vtl");
-//   return new ModelAndView(model, layout);
-// }, new VelocityTemplateEngine());
-//
-//
-// post("/activities", (request, response) -> {
-//   HashMap<String, Object> model = new HashMap<String, Object>();
-//   String type = request.queryParams("type");
-//   Activity activity = new Activity(type);
-//   activity.save();
-//
-//
-//   model.put("activity", activity);
-//   model.put("template", "templates/teacher.vtl");
-//   return null;
-// });
-//
-//
+
+get("/activity", (request, response) -> {
+  HashMap<String, Object> model = new HashMap<String, Object>();
+
+  model.put("template", "templates/activity.vtl");
+  return new ModelAndView(model, layout);
+}, new VelocityTemplateEngine());
+
+
+post("/activity", (request, response) -> {
+  HashMap<String, Object> model = new HashMap<String, Object>();
+  String type = request.queryParams("type");
+  String description = request.queryParams("description");
+  Activity activity = new Activity(type,description);
+  activity.save();
+
+
+  //model.put("activity", activity);
+  model.put("allActivities", Activity.all());
+  model.put("template", "templates/teacher.vtl");
+  return new ModelAndView(model, layout);
+  }, new VelocityTemplateEngine());
+
+
  }
  }

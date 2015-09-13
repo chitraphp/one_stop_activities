@@ -125,14 +125,12 @@ public class Student {
     public Teacher getStudentActivityTeacher(int activity_id) {
       try(Connection con = DB.sql2o.open()) {
 
-      String sql = "SELECT teachers .* FROM activities JOIN students_teachers_activities ON (activities.id = students_teachers_activities.activity_id) JOIN teachers ON (students_teachers_activities.teacher_id = teachers.id) JOIN students ON (students_teachers_activities.student_id = students.id) WHERE student_id = :id and activity_id = :activity_id";
+      String sql = "SELECT teachers.* FROM activities JOIN students_teachers_activities ON (activities.id = students_teachers_activities.activity_id) JOIN teachers ON (students_teachers_activities.teacher_id = teachers.id) JOIN students ON (students_teachers_activities.student_id = students.id) WHERE student_id = :id and activity_id = :activity_id";
       return con.createQuery(sql)
       .addParameter("id",id)
       .addParameter("activity_id" ,activity_id)
       .executeAndFetchFirst(Teacher.class);
       }
     }
-
-
 
   }

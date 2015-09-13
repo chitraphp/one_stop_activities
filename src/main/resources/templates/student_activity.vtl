@@ -1,6 +1,7 @@
-<h1>newStudent.getName()</h1>
+<h1>$newStudent.getName()</h1>
 <h1>Add Activities</h1>
 <form action="/student_activity" method="post">
+  <input type="hidden" name="student_id" id="student_id" value="$newStudent.getId()"> 
 <label for="activity_id">Select an activity</label>
 <select id="activity_id" name="activity_id" type='text'>
   #foreach($activity in $allActivities)
