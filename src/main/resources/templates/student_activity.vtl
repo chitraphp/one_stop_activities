@@ -1,14 +1,14 @@
 <h1>$newStudent.getName()</h1>
 <h1>Add Activities</h1>
 <form action="/student_activity" method="post">
-  <input type="hidden" name="student_id" id="student_id" value="$newStudent.getId()"> 
+  <input type="hidden" name="student_id" id="student_id" value="$newStudent.getId()"><br>
 <label for="activity_id">Select an activity</label>
 <select id="activity_id" name="activity_id" type='text'>
   #foreach($activity in $allActivities)
     <option value="$activity.getId()"> $activity.getName() </option>
   #end
 </select>
-<button type='submit'>Select Activity</button>
+<button type='submit' class="btn btn-success">Select Activity</button>
 </form>
 
 <!-- <div id="teachers" name="teachers">

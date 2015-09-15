@@ -16,13 +16,6 @@ public class App {
     return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    get("/teachers", (request, response) -> {
-    HashMap<String, Object> model = new HashMap<String, Object>();
-    model.put("teachers", Teacher.all());
-    model.put("template", "templates/teachers.vtl");
-    return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
-
   get("/students", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
 
@@ -58,6 +51,12 @@ public class App {
     return new ModelAndView(model, layout);
   }, new VelocityTemplateEngine());
 
+  get("/teachers", (request, response) -> {
+  HashMap<String, Object> model = new HashMap<String, Object>();
+  //model.put("teachers", Teacher.all());
+  model.put("template", "templates/teachers.vtl");
+  return new ModelAndView(model, layout);
+  }, new VelocityTemplateEngine());
 
   post("/add_teacher", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
@@ -110,7 +109,6 @@ post("/teacher", (request, response) -> {
 
 get("/activity", (request, response) -> {
   HashMap<String, Object> model = new HashMap<String, Object>();
-
   model.put("template", "templates/activity.vtl");
   return new ModelAndView(model, layout);
 }, new VelocityTemplateEngine());
@@ -122,8 +120,6 @@ post("/activity", (request, response) -> {
   String description = request.queryParams("description");
   Activity activity = new Activity(type,description);
   activity.save();
-
-
   //model.put("activity", activity);
   model.put("allActivities", Activity.all());
   model.put("template", "templates/teacher.vtl");

@@ -4,43 +4,43 @@
 
 <form action="/teacher" method="post">
   <label for="name">Teacher Name</label>
-  <input id="name" name="name" type="text">
+  <input id="name" name="name" type="text" required=""><br>
 
   <label for="qualification">Qualification</label>
-  <input id="qualification" name="qualification" type="text">
+  <input id="qualification" name="qualification" type="text"><br>
 
   <label for="experience">Experience</label>
-  <input id="experience" name="experience" type="text">
+  <input id="experience" name="experience" type="text"><br>
 
   <label for="activity_id">Select an activity</label>
   <select id="activity_id" name="activity_id" type='text'>
     #foreach($activity in $allActivities)
       <option value="$activity.getId()"> $activity.getName() </option>
     #end
-  </select>
+  </select><br>
 
   <label for="no_of_students">No Of Students</label>
-  <input id="no_of_students" name="no_of_students" type="number">
+  <input id="no_of_students" name="no_of_students" type="number" max="50" min="1"><br>
 
   <label for="fees">Fees</label>
-  <input id="fees" name="fees" type="number">
+  <input id="fees" name="fees" type="number" pattern="(\d{3})([\.])(\d{2})"><br>
 
   <label for="location">Location</label>
-  <input id="location" name="location" type="text">
+  <input id="location" name="location" type="text"><br>
 
-  <!-- <label for="spots_available">Spots Available</label>
-  <input id="spots_available" name="spots_available" type="number"> -->
+  <label for="spots_available">Spots Available</label>
+  <input id="spots_available" name="spots_available" type="number" max="50" min"1"><br>
 
   <label for="class_start_date">Start Date</label>
-  <input id="class_start_date" name="class_start_date" type="date">
+  <input id="class_start_date" name="class_start_date" type="date"><br>
 
   <label for="class_end_date">End Date</label>
-  <input id="class_end_date" name="class_end_date" type="date">
+  <input id="class_end_date" name="class_end_date" type="date"><br>
 
   <label for="class_time">Class Timings</label>
-  <input id="class_time" name="class_time" type="time">
+  <input id="class_time" name="class_time" type="time"><br>
 
-  <button type="submit">Add Teacher</button>
+  <button type="submit" class="btn btn-success">Add Teacher</button><br>
 </form>
 
 <a href='/activity'>Add new Activity</a>
